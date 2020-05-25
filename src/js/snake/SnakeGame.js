@@ -1,5 +1,6 @@
 import {Snake} from "./Snake";
 import {SnakeGrid} from "./SnakeGrid";
+import {SnakeLevels} from "./SnakeOptions";
 
 export class SnakeGame {
 
@@ -25,7 +26,8 @@ export class SnakeGame {
 
     this.snake.reset();
     this.grid.reset();
-    this.speed = 750;
+    this.level = 1;
+    this.speed = SnakeLevels[this.level];
     this.score = 0;
     this.grid.addApple();
 
@@ -38,10 +40,9 @@ export class SnakeGame {
   }
 
   speedUp() {
-    if (this.speed < 200) {
-      return;
-    }
-    this.speed -= 50;
+    this.level++;
+    this.speed = this.level > SnakeLevels.length ? SnakeLevels[SnakeLevels.length - 1] : SnakeLevels[this.level - 1];
+    console.log(this.speed);
   }
 
   loop() {
@@ -64,7 +65,7 @@ export class SnakeGame {
 
   updateInfo() {
     this.scoreElm.textContent = this.score;
-    this.speedElm.textContent = this.speed;
+    this.speedElm.textContent = this.level;
   }
 
 }

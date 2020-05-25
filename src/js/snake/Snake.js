@@ -39,7 +39,7 @@ export class Snake {
       return next -= COLS * ROWS;
     } else if (next < 0 && this.direction === UP) {
       return next += COLS * ROWS;
-    } else if (next % COLS === COLS - 1 && this.direction === LEFT) {
+    } else if ((next < 0 || next % COLS === COLS - 1) && this.direction === LEFT) {
       return next += COLS;
     } else if (next % COLS === 0 && this.direction === RIGHT) {
       return next -= COLS;

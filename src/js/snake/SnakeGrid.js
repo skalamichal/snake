@@ -9,6 +9,20 @@ export class SnakeGrid {
   constructor(grid) {
     this.grid = document.getElementById(grid);
     this.build();
+
+    const resizeObserver = new ResizeObserver(() => this.updateCellSize());
+    resizeObserver.observe(document.querySelector('body'));
+  }
+
+  updateCellSize() {
+    const w = this.grid.getBoundingClientRect().width * .9,
+      h = this.grid.getBoundingClientRect().height * .9,
+      cw = Math.floor(w / COLS),
+      ch = Math.floor(h / ROWS);
+
+    let size = Math.min(cw, ch);
+
+    document.documentElement.style.setProperty('--cell-size', `${size}px`);
   }
 
   /**
