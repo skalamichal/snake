@@ -11,9 +11,17 @@ export class SnakeGrid {
     this.build();
   }
 
+  /**
+   * Return the grid HTML element
+   * @return {HTMLElement}
+   */
+  get element() {
+    return this.grid;
+  }
+
   build() {
     const cells = COLS * ROWS;
-    for (let i=0; i< cells; i++) {
+    for (let i = 0; i < cells; i++) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
       cell.setAttribute('id', 'cell' + i);

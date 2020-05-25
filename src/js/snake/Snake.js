@@ -1,6 +1,8 @@
 import {MIN_SNAKE_LENGTH, ROWS, START_POS, COLS} from "./SnakeOptions";
 import {DOWN, LEFT, RIGHT, UP} from "./SnakeDirection";
 
+import * as Hammer from "hammerjs";
+
 export class Snake {
 
   /**
@@ -19,6 +21,11 @@ export class Snake {
     this.directionChangeAllowed = true;
 
     document.addEventListener('keydown', event => this.processKey(event))
+
+    const hammer = new Hammer.Manager(this.grid.element);
+    const swipe = new Hammer.Swipe();
+    hammer.add(swipe);
+    hammer.on('swipe', event => this.processSwipe(event));
   }
 
   reset() {
@@ -75,6 +82,22 @@ export class Snake {
     if (['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'].includes(event.key)) {
       this.directionChangeAllowed = false;
     }
+  }
+
+  processSwipe(event) {
+    if (!this.directionChangeAllowed) return;
+
+    if (event.direction === 2 && this.direction !== RIGHT) {
+      this.direction = LEFT;
+    } else if (event.direction === 4 && this.direction !== LEFT) {
+      this.direction = RIGHT;
+    } else if (event.direction === 8 && this.direction !== DOWN) {
+      this.direction = UP;
+    } else if (event.direction === 16 && this.direction !== UP) {
+      this.direction = DOWN;
+    }
+
+    this.directionChangeAllowed = false;
   }
 
   move() {
