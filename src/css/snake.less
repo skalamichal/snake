@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@base-color: rgba(13, 48, 87, 0.97);
+@base-bg: rgba(24, 139, 248, 0.14);
+@base-border: rgba(24, 139, 248, 0.18);
+
+@primary-color: #f8f8f8;
+@primary-bg: #173750;
+@primary-border: #122b3e;
+
+@snake-bg: #3b841d;
+@snake-border: #346f1b;
+
+@apple-bg: #9c0505;
+@apple-border: #870404;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 20pt;
+
+  color: @base-color;
+}
+
+.grid {
+  place-self: center;
+
+  width: 400px;
+  height: 300px;
+  display: flex;
+  flex-flow: row wrap;
+
+  .cell {
+    position: relative;
+
+    margin: 1px;
+
+    width: 18px;
+    height: 18px;
+
+    background-color: @base-bg;
+    border: 1px solid @base-border;
+    border-radius: 2px;
+
+    &.snakeBody {
+      background-color: @snake-bg;
+      border-color: @snake-border;
+    }
+
+    &.apple:after {
+      position: absolute;
+      content: '';
+
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+
+      background-color: @apple-bg;
+      border: 1px solid @apple-border;
+      border-radius: 7px;
+    }
+  }
+}
+
+.header {
+  place-self: center auto;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 12px;
+
+  font-size: 1.5rem;
+
+  background-color: @primary-bg;
+  color: @primary-color;
+
+  span {
+    font-weight: 800;
+  }
+}
+
+.footer {
+  place-self: center;
+
+  padding: 12px;
+}
+
+.btn {
+  background-color: @primary-bg;
+  border: 1px solid @primary-border;
+  border-radius: 2px;
+
+  color: @primary-color;
+  padding: 6px 12px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+.gameOver {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 100;
+
+  display: grid;
+  place-content: center;
+
+  pointer-events: none;
+
+  > div {
+    padding: 24px;
+
+    font-size: 2rem;
+
+    background-color: @apple-bg;
+    color: @primary-color;
+  }
+}
