@@ -20,6 +20,9 @@ export class Snake {
     // make sure we allow change only once per move
     this.directionChangeAllowed = true;
 
+    // is game running
+    this.gameOver = true;
+
     document.addEventListener('keydown', event => this.processKey(event))
 
     const hammer = new Hammer.Manager(this.grid.element);
@@ -32,6 +35,7 @@ export class Snake {
     this.snake = [];
     this.pos = START_POS;
     this.snake.push(this.pos);
+    this.gameOver = false;
   }
 
   validate(next) {
@@ -48,6 +52,8 @@ export class Snake {
   }
 
   loop() {
+    if (this.gameOver) return;
+
     let next = this.validate(this.pos + this.direction);
 
     // is empty, we just need to move the snake
@@ -57,6 +63,7 @@ export class Snake {
       this.eat();
     } else if (this.grid.isSnake(next)) {
       this.game.end();
+      this.gameOver = true;
     }
 
     this.directionChangeAllowed = true;
@@ -68,6 +75,7 @@ export class Snake {
    */
   processKey(event) {
     if (!this.directionChangeAllowed) return;
+    if (this.gameOver) return;
 
     if (event.key === 'ArrowLeft' && this.direction !== RIGHT) {
       this.direction = LEFT;
@@ -86,6 +94,7 @@ export class Snake {
 
   processSwipe(event) {
     if (!this.directionChangeAllowed) return;
+    if (this.gameOver) return;
 
     if (event.direction === 2 && this.direction !== RIGHT) {
       this.direction = LEFT;
