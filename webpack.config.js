@@ -39,6 +39,17 @@ module.exports = {
           'less-loader'     // compiles Less to CSS
         ],
       },
+      {
+        test: /\.wav$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'audio/[name].[ext]',
+            }
+          }
+        ]
+      }
     ]
   }
 }

@@ -2,6 +2,7 @@ import {MIN_SNAKE_LENGTH, ROWS, START_POS, COLS} from "./SnakeOptions";
 import {DOWN, LEFT, RIGHT, UP} from "./SnakeDirection";
 
 import * as Hammer from "hammerjs";
+import {snakeEatSound} from "./SnakeSound";
 
 export class Snake {
 
@@ -39,7 +40,7 @@ export class Snake {
   }
 
   validate(next) {
-    if (next > COLS * ROWS && this.direction === DOWN) {
+    if (next >= COLS * ROWS && this.direction === DOWN) {
       return next -= COLS * ROWS;
     } else if (next < 0 && this.direction === UP) {
       return next += COLS * ROWS;
@@ -128,6 +129,8 @@ export class Snake {
     this.grid.addApple();
 
     this.game.updateScore();
+
+    snakeEatSound();
 
     if (this.snake.length % 5 === 0) {
       this.game.speedUp();
