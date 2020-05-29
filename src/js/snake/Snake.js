@@ -56,9 +56,10 @@ export class Snake {
     if (this.gameOver) return;
 
     let next = this.validate(this.pos + this.direction);
+    let tail = this.snake[0];
 
     // is empty, we just need to move the snake
-    if (this.grid.isEmpty(next)) {
+    if (this.grid.isEmpty(next) || next === tail) {
       this.move();
     } else if (this.grid.isApple(next)) {
       this.eat();
@@ -111,21 +112,27 @@ export class Snake {
   }
 
   move() {
+    const oldPos = this.pos;
     this.pos = this.validate(this.pos + this.direction);
     this.snake.push(this.pos);
-    this.grid.setSnakeBody(this.pos);
 
     // remove the last position
     if (this.snake.length > MIN_SNAKE_LENGTH) {
       const last = this.snake.shift();
-      this.grid.removeSnakeBody(last);
+      this.grid.removeSnake(last);
     }
+
+    // update head
+    this.grid.setSnakeHead(this.pos, this.direction);
+    this.grid.removeSnakeHead(oldPos);
   }
 
   eat() {
+    const oldPos = this.pos;
     this.pos = this.validate(this.pos + this.direction)
     this.snake.push(this.pos);
-    this.grid.setSnakeBody(this.pos);
+    this.grid.setSnakeHead(this.pos, this.direction);
+    this.grid.removeSnakeHead(oldPos);
     this.grid.addApple();
 
     this.game.updateScore();

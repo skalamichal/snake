@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+@main-bg: rgba(4, 14, 26, 0.97);
+
 @base-color: rgba(13, 48, 87, 0.97);
 @base-bg: rgba(24, 139, 248, 0.14);
 @base-border: rgba(24, 139, 248, 0.18);
@@ -8,12 +10,12 @@
 @primary-bg: #173750;
 @primary-border: #122b3e;
 
-@snake-bg: #3b841d;
-@snake-border: #346f1b;
+@snake-bg: rgba(197, 238, 248, 0.97);
+@snake-border: none;
+@snake-shadow: rgb(255, 255, 255);
 
-@apple-bg: #9c0505;
-@apple-border: #870404;
-
+@apple-bg: #f61616;
+@apple-shadow: #f1bebe;
 
 * {
   margin: 0;
@@ -26,6 +28,10 @@
 }
 
 body {
+  background-color: @main-bg;
+}
+
+.main-grid {
   display: grid;
 
   grid-template-rows: auto 1fr auto;
@@ -60,6 +66,44 @@ body {
     &.snakeBody {
       background-color: @snake-bg;
       border-color: @snake-border;
+      box-shadow: 0 0 1px @snake-shadow;
+
+      z-index: 10;
+
+      &.snakeHead {
+        &:before, &:after {
+          position: absolute;
+          content: '';
+          background-color: black;
+          top: 15%;
+          width: 4px;
+          height: 4px;
+          border-radius: 2px;
+          box-shadow: 0 0 0 2px @base-color;
+        }
+        &:before {
+          left: 15%;
+        }
+        &:after {
+          right: 15%;
+        }
+
+        &.up {
+          transform: rotate(0deg);
+        }
+
+        &.right {
+          transform: rotate(90deg);
+        }
+
+        &.down {
+          transform: rotate(180deg);
+        }
+
+        &.left {
+          transform: rotate(-90deg);
+        }
+      }
     }
 
     &.apple:after {
@@ -72,7 +116,7 @@ body {
       bottom: 2px;
 
       background-color: @apple-bg;
-      border: 1px solid @apple-border;
+      box-shadow: 0 0 5px inset @apple-shadow;
       border-radius: calc(100% - 4px);
     }
   }

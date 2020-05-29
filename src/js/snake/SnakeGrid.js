@@ -1,4 +1,13 @@
-import {APPLE_CLASS, COLS, ROWS, SNAKE_BODY_CLASS} from "./SnakeOptions";
+import {
+  APPLE_CLASS,
+  COLS, MIN_CELL_SIZE,
+  ROWS,
+  SNAKE_BODY_CLASS,
+  SNAKE_DOWN_CLASS,
+  SNAKE_HEAD_CLASS, SNAKE_LEFT_CLASS, SNAKE_RIGHT_CLASS,
+  SNAKE_UP_CLASS
+} from "./SnakeOptions";
+import {DOWN, LEFT, RIGHT, UP} from "./SnakeDirection";
 
 export class SnakeGrid {
 
@@ -20,7 +29,7 @@ export class SnakeGrid {
       cw = Math.floor(w / COLS),
       ch = Math.floor(h / ROWS);
 
-    let size = Math.min(cw, ch);
+    let size = Math.max(Math.min(cw, ch), MIN_CELL_SIZE);
 
     document.documentElement.style.setProperty('--cell-size', `${size}px`);
   }
@@ -61,11 +70,34 @@ export class SnakeGrid {
   }
 
   /**
+   * Set the snake head to the cell at given pos
+   * @param pos
+   * @param direction
+   */
+  setSnakeHead(pos, direction) {
+    const cell = this.getCell(pos);
+    cell.classList.add(SNAKE_BODY_CLASS, SNAKE_HEAD_CLASS);
+    if (direction === UP) {
+      cell.classList.add(SNAKE_UP_CLASS);
+    } else if (direction === DOWN) {
+      cell.classList.add(SNAKE_DOWN_CLASS);
+    } else if (direction === LEFT) {
+      cell.classList.add(SNAKE_LEFT_CLASS);
+    } else if (direction === RIGHT) {
+      cell.classList.add(SNAKE_RIGHT_CLASS);
+    }
+  }
+
+  removeSnakeHead(pos) {
+    this.getCell(pos).classList.remove(SNAKE_RIGHT_CLASS, SNAKE_LEFT_CLASS, SNAKE_DOWN_CLASS, SNAKE_UP_CLASS, SNAKE_HEAD_CLASS);
+  }
+
+  /**
    * Remove the snake body from the cell
    * @param pos
    */
-  removeSnakeBody(pos) {
-    this.getCell(pos).classList.remove(SNAKE_BODY_CLASS);
+  removeSnake(pos) {
+    this.getCell(pos).classList.remove(SNAKE_BODY_CLASS, SNAKE_RIGHT_CLASS, SNAKE_LEFT_CLASS, SNAKE_DOWN_CLASS, SNAKE_UP_CLASS, SNAKE_HEAD_CLASS);
   }
 
   isEmpty(pos) {
