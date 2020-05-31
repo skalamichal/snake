@@ -32,6 +32,7 @@ export class SnakeGrid {
     let size = Math.max(Math.min(cw, ch), MIN_CELL_SIZE);
 
     document.documentElement.style.setProperty('--cell-size', `${size}px`);
+    document.documentElement.style.setProperty('--vh', window.innerHeight/100 + 'px');
   }
 
   /**

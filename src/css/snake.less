@@ -25,6 +25,7 @@
 
 :root {
   --cell-size: 30px;
+  --vh: 1;
 }
 
 body {
@@ -36,7 +37,7 @@ body {
 
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
-  height: 100vh;
+  height: calc(100 * var(--vh));
 
   font-family: 'Roboto', sans-serif;
   font-size: 20pt;
@@ -193,6 +194,7 @@ body {
   > div {
     padding: 24px;
 
+    font-family: 'Roboto', sans-serif;
     font-size: 2rem;
 
     background-color: @apple-bg;
