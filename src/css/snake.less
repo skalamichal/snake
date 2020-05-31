@@ -10,12 +10,12 @@
 @primary-bg: #173750;
 @primary-border: #122b3e;
 
-@snake-bg: rgba(197, 238, 248, 0.97);
-@snake-border: none;
-@snake-shadow: rgb(255, 255, 255);
+@snake-bg: #0b1925;
+@snake-border: #188bf8;
+@snake-shadow: #188bf8;
 
-@apple-bg: #f61616;
-@apple-shadow: #f1bebe;
+@apple-bg: #390101;
+@apple-shadow: #f61616;
 
 * {
   margin: 0;
@@ -63,29 +63,44 @@ body {
     border: 1px solid @base-border;
     border-radius: 2px;
 
+    transition: background 200ms, box-shadow 200ms;
+
     &.snakeBody {
       background-color: @snake-bg;
       border-color: @snake-border;
-      box-shadow: 0 0 1px @snake-shadow;
+      box-shadow: 0 0 8px @snake-shadow,
+      0 0 4px @snake-shadow,
+      0 0 2px @snake-shadow,
+      0 0 1px @snake-shadow;
 
-      z-index: 10;
+      &:before {
+        position: absolute;
+        content: '';
+        background-color: @snake-bg;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        border-radius: 2px;
+        z-index: 10;
+      }
 
       &.snakeHead {
-        &:before, &:after {
+        z-index: 20;
+
+        box-shadow: 0 0 18px @snake-shadow,
+        0 0 8px @snake-shadow,
+        0 0 4px @snake-shadow,
+        0 0 2px @snake-shadow;
+
+        &:after {
           position: absolute;
           content: '';
-          background-color: black;
-          top: 15%;
-          width: 4px;
-          height: 4px;
-          border-radius: 2px;
-          box-shadow: 0 0 0 2px @base-color;
-        }
-        &:before {
-          left: 15%;
-        }
-        &:after {
-          right: 15%;
+          width: 100%;
+          height: 100%;
+          background-image: url("../images/eyes.png");
+          background-size: cover;
+          z-index: 25;
         }
 
         &.up {
@@ -110,13 +125,16 @@ body {
       position: absolute;
       content: '';
 
-      top: 2px;
-      left: 2px;
-      right: 2px;
-      bottom: 2px;
+      top: 4px;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
 
       background-color: @apple-bg;
-      box-shadow: 0 0 5px inset @apple-shadow;
+      box-shadow: 0 0 18px @apple-shadow,
+      0 0 8px @apple-shadow,
+      0 0 4px @apple-shadow,
+      0 0 2px @apple-shadow;
       border-radius: calc(100% - 4px);
     }
   }

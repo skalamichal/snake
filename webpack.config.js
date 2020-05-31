@@ -49,6 +49,21 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.png$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              loader: 'image-webpack-loader',
+              options: {
+                disable: true, // webpack@2.x and newer
+              },
+              name: 'images/[name].[ext]',
+            }
+          }
+        ]
       }
     ]
   }
