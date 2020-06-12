@@ -32,7 +32,7 @@ export class SnakeGrid {
     let size = Math.max(Math.min(cw, ch), MIN_CELL_SIZE);
 
     document.documentElement.style.setProperty('--cell-size', `${size}px`);
-    document.documentElement.style.setProperty('--vh', window.innerHeight/100 + 'px');
+    document.documentElement.style.setProperty('--vh', window.innerHeight / 100 + 'px');
   }
 
   /**
@@ -55,7 +55,9 @@ export class SnakeGrid {
 
   reset() {
     const cells = this.grid.getElementsByClassName('cell');
-    Array.from(cells).forEach(cell => cell.classList.remove(APPLE_CLASS, SNAKE_BODY_CLASS));
+    Array.from(cells).forEach(
+      cell => cell.classList.remove(APPLE_CLASS, SNAKE_BODY_CLASS, SNAKE_HEAD_CLASS, SNAKE_DOWN_CLASS, SNAKE_UP_CLASS,
+        SNAKE_LEFT_CLASS, SNAKE_RIGHT_CLASS));
   }
 
   getCell(pos) {
@@ -90,7 +92,8 @@ export class SnakeGrid {
   }
 
   removeSnakeHead(pos) {
-    this.getCell(pos).classList.remove(SNAKE_RIGHT_CLASS, SNAKE_LEFT_CLASS, SNAKE_DOWN_CLASS, SNAKE_UP_CLASS, SNAKE_HEAD_CLASS);
+    this.getCell(pos).classList.remove(SNAKE_RIGHT_CLASS, SNAKE_LEFT_CLASS, SNAKE_DOWN_CLASS, SNAKE_UP_CLASS,
+      SNAKE_HEAD_CLASS);
   }
 
   /**
@@ -98,7 +101,8 @@ export class SnakeGrid {
    * @param pos
    */
   removeSnake(pos) {
-    this.getCell(pos).classList.remove(SNAKE_BODY_CLASS, SNAKE_RIGHT_CLASS, SNAKE_LEFT_CLASS, SNAKE_DOWN_CLASS, SNAKE_UP_CLASS, SNAKE_HEAD_CLASS);
+    this.getCell(pos).classList.remove(SNAKE_BODY_CLASS, SNAKE_RIGHT_CLASS, SNAKE_LEFT_CLASS, SNAKE_DOWN_CLASS,
+      SNAKE_UP_CLASS, SNAKE_HEAD_CLASS);
   }
 
   isEmpty(pos) {
